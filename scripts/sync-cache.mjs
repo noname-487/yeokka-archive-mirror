@@ -1,5 +1,5 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
-import {parseSheet} from '../worker/index.js';
+import {parseSheet,validateMonth} from '../worker/index.js';
 const config=JSON.parse(await readFile(new URL('../config/sources.json',import.meta.url)));
 const root=new URL('../docs/data/',import.meta.url);
 const read=async p=>{try{return JSON.parse(await readFile(new URL(p,root)))}catch{return null}};
@@ -14,9 +14,10 @@ for(const {year,month,a} of selected){
   const url=a.url.replace(/\/edit.*$/,'')+'/htmlview/sheet?headers=true&gid='+a.months[month];
   const response=await fetch(url,{signal:AbortSignal.timeout(30000)});
   if(!response.ok)throw new Error('HTTP '+response.status);
-  const events=parseSheet(await response.text(),month,year);
+  const chunks=[];let size=0;for await(const chunk of response.body){size+=chunk.length;if(size>4194304)throw new Error('Source HTML too large');chunks.push(chunk)}
+  const events=parseSheet(Buffer.concat(chunks).toString('utf8'),month,year);
   if(old?.events.length>=20&&events.length<old.events.length*.6)throw new Error('Unexpected record drop; retaining previous cache');
-  const data={year,month,events,updatedAt:new Date().toISOString(),source:a.url+'#gid='+a.months[month]};
+  const data=validateMonth({year,month,events,updatedAt:new Date().toISOString(),source:a.url+'#gid='+a.months[month]},year,month,a.url);
   await mkdir(new URL(year+'/',root),{recursive:true});await writeFile(new URL(path,root),JSON.stringify(data)+'\n');
   console.log(year+'-'+month+': '+events.length+' records');
  }catch(error){errors.push({year,month,message:String(error.message),checkedAt:new Date().toISOString()});missing||=!old;console.error(year+'-'+month+': '+error.message+'; retained last good cache');}

@@ -8,6 +8,6 @@
     "dev": "NODE_USE_ENV_PROXY=1 node scripts/preview.mjs",
     "build:pages": "node scripts/build-pages.mjs",
     "sync:cache": "node scripts/sync-cache.mjs --all",
-    "test": "node scripts/test-cache.mjs && node scripts/test-library.mjs"
+    "test": "node scripts/test-cache.mjs && node scripts/test-library.mjs && node scripts/test-security.mjs"
   }
 }
