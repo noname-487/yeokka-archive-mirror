@@ -27,7 +27,7 @@ export default {async fetch(request,env,ctx){
   try{
    const hit=monthCache.get(key);
    if(!u.searchParams.has('refresh')&&hit&&Date.now()-hit.at<300000)return Response.json(hit.data,{headers:{'Cache-Control':'no-store'}});
-   const res=await fetch('https://noname-487.github.io/yeokka-archive-mirror/data/'+year+'/'+month+'.json',{signal:AbortSignal.timeout(12000)});
+   const res=await fetch('https://raw.githubusercontent.com/noname-487/yeokka-archive-mirror/main/docs/data/'+year+'/'+month+'.json',{signal:AbortSignal.timeout(12000)});
    if(!res.ok)throw new Error('공용 캐시 응답 오류 ('+res.status+')');
    const data=await res.json();
    if(data.year!==year||data.month!==month||!Array.isArray(data.events))throw new Error('공용 캐시 형식 오류');

@@ -16,6 +16,6 @@ assert.ok(!html.includes('/api/month'));assert.ok(html.includes('./data/'));asse
 for(const match of html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g))new vm.Script(match[1]);
 const originalFetch=globalThis.fetch;let calls=[];
 globalThis.fetch=async url=>{calls.push(url);throw new Error('offline')};
-try{const r=await app.fetch(new Request('https://test/api/month?year=2024&month=8'));assert.equal(r.status,200);const d=await r.json();assert.equal(d.stale,true);assert.ok(d.events.length);assert.ok(calls.every(x=>x.startsWith('https://noname-487.github.io/')));assert.equal((await app.fetch(new Request('https://test/api/month?year=2024&month=13'))).status,400)}finally{globalThis.fetch=originalFetch}
+try{const r=await app.fetch(new Request('https://test/api/month?year=2024&month=8'));assert.equal(r.status,200);const d=await r.json();assert.equal(d.stale,true);assert.ok(d.events.length);assert.ok(calls.every(x=>x.startsWith('https://raw.githubusercontent.com/noname-487/yeokka-archive-mirror/')));assert.equal((await app.fetch(new Request('https://test/api/month?year=2024&month=13'))).status,400)}finally{globalThis.fetch=originalFetch}
 assert.equal(normalizeTitle('게임 #12'),'게임');assert.throws(()=>parseSheet('<table></table>',1,2024));
 console.log('Cache validation passed: '+total+' records, static scripts, offline fallback, no visitor Google requests');
