@@ -1,0 +1,13 @@
+{
+  "name": "yeokka-archive-calendar",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "validate": "node scripts/validate-artifact.mjs",
+    "dev": "NODE_USE_ENV_PROXY=1 node scripts/preview.mjs",
+    "build:pages": "node scripts/build-pages.mjs",
+    "sync:cache": "node scripts/sync-cache.mjs --all",
+    "test": "node scripts/test-cache.mjs && node scripts/test-library.mjs"
+  }
+}
