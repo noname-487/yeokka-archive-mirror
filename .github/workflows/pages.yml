@@ -24,11 +24,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Refresh shared cache
-        if: github.event_name != 'push'
         env:
           CACHE_SCOPE: ${{ github.event.inputs.scope || (github.event.schedule == '23 18 * * *' && 'all' || 'recent') }}
         run: node scripts/sync-cache.mjs --"$CACHE_SCOPE"
@@ -39,14 +41,14 @@ jobs:
           node scripts/test-cache.mjs
           node scripts/test-library.mjs
       - name: Keep latest successful snapshots
-        if: github.event_name != 'push'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add docs/data docs/index.html worker/cache-seed.js
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh public archive cache'
-            git push
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
