@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-27T22:27:25.914Z",
-  "scope": "all",
+  "checkedAt": "2026-10-28T00:27:22.135Z",
+  "scope": "recent",
   "months": [
     {
       "year": 2024,
@@ -231,14 +231,14 @@
       "year": 2026,
       "month": 9,
       "count": 176,
-      "updatedAt": "2026-10-27T22:27:23.444Z",
+      "updatedAt": "2026-10-28T00:27:19.571Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 10,
       "count": 105,
-      "updatedAt": "2026-10-27T22:27:24.902Z",
+      "updatedAt": "2026-10-28T00:27:21.118Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     }
   ],
