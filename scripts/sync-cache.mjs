@@ -1,5 +1,7 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {parseSheet,validateMonth} from '../worker/index.js';
+import {discoverMonths} from './discover-months.mjs';
+if(!process.env.GITHUB_ACTIONS)await discoverMonths();
 const config=JSON.parse(await readFile(new URL('../config/sources.json',import.meta.url)));
 const root=new URL('../docs/data/',import.meta.url);
 const read=async p=>{try{return JSON.parse(await readFile(new URL(p,root)))}catch{return null}};

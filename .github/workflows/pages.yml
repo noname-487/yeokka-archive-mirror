@@ -33,6 +33,8 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
+      - name: Discover new month tabs
+        run: node scripts/discover-months.mjs
       - name: Decide cache refresh scope
         id: freshness
         env:
@@ -71,6 +73,7 @@ jobs:
       - name: Verify archive and browser storage
         if: steps.freshness.outputs.run == 'true'
         run: |
+          node scripts/test-discovery.mjs
           node scripts/test-cache.mjs
           node scripts/test-library.mjs
           node scripts/test-security.mjs
@@ -79,7 +82,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/data docs/index.html worker/cache-seed.js
+          git add config/sources.json docs/data docs/index.html worker/cache-seed.js
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh public archive cache'
             git pull --rebase origin main

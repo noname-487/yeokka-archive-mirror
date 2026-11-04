@@ -33,7 +33,19 @@ export async function readMonthResponse(response,year,month,source,allowPlainTex
  const bytes=new Uint8Array(size);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length}
  return validateMonth(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)),year,month,source);
 }
+export function validateCatalog(data){
+ if(!data||typeof data!=='object'||Array.isArray(data))throw Error('Invalid month catalog');
+ const out={};for(const year of Object.keys(ARCHIVES)){const months=data[year];if(!Array.isArray(months)||!months.length||months.length>12||months.some(m=>!Number.isInteger(m)||m<1||m>12)||new Set(months).size!==months.length)throw Error('Invalid month catalog');out[year]=[...months].sort((a,b)=>a-b)}return out;
+}
+export function seedCatalog(){const out={};for(const year of Object.keys(ARCHIVES))out[year]=Object.keys(seed).filter(k=>k.startsWith(year+'-')).map(k=>Number(k.split('-')[1])).sort((a,b)=>a-b);return validateCatalog(out)}
+let catalogCache=null,catalogPending=null;
+async function sharedCatalog(){
+ if(catalogCache&&Date.now()-catalogCache.at<300000)return catalogCache.data;
+ if(!catalogPending)catalogPending=(async()=>{try{const res=await fetch('https://raw.githubusercontent.com/noname-487/yeokka-archive-mirror/main/docs/data/catalog.json',{signal:AbortSignal.timeout(12000)});if(!res.ok)throw Error('Catalog unavailable');const chunks=[];let size=0;for await(const chunk of res.body){size+=chunk.length;if(size>16384)throw Error('Catalog too large');chunks.push(chunk)}const bytes=new Uint8Array(size);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length}const data=validateCatalog(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)));catalogCache={data,at:Date.now()};return data}catch{const data=catalogCache?.data||seedCatalog();catalogCache={data,at:Date.now()};return data}})().finally(()=>catalogPending=null);
+ return catalogPending;
+}
 export async function secureHTML(html,development=false){
+ html=html.replace('/* ARCHIVE_MONTHS */null',JSON.stringify(seedCatalog()));
  html=html.replace('/* CACHE_VALIDATOR */',validateMonth.toString()+'\n'+readMonthResponse.toString());
  const hashes=async tag=>{const out=[];for(const m of html.matchAll(new RegExp('<'+tag+'[^>]*>([\\s\\S]*?)<\\/'+tag+'>','g'))){const bytes=new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(m[1])));out.push("'sha256-"+btoa(String.fromCharCode(...bytes))+"'")}return out.join(' ')};
  const policy="default-src 'none'; script-src "+await hashes('script')+"; script-src-attr 'none'; style-src "+await hashes('style')+"; style-src-attr 'none'; img-src https://i.ytimg.com; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'"+(development?'':'; upgrade-insecure-requests');
@@ -44,9 +56,10 @@ export async function secureHTML(html,development=false){
 const monthCache=new Map(),monthPending=new Map();
 export default {async fetch(request,env,ctx){
  const u=new URL(request.url);
+ if(u.pathname==='/api/catalog')return Response.json(await sharedCatalog(),{headers:{'Cache-Control':'no-store'}});
  if(u.pathname==='/api/month'){
   const year=Number(u.searchParams.get('year')||2026),month=Number(u.searchParams.get('month')),archive=ARCHIVES[year];
-  if(!archive?.months[month])return Response.json({error:'지원하지 않는 연도 또는 월입니다.'},{status:400});
+  if(!archive||!Number.isInteger(month)||month<1||month>12)return Response.json({error:'지원하지 않는 연도 또는 월입니다.'},{status:400});
   const key=year+'-'+month;
   try{
    const hit=monthCache.get(key);
@@ -133,11 +146,12 @@ async function readTransferCode(input){if(typeof input!=='string'||input.length>
 document.addEventListener('error',e=>{if(e.target instanceof HTMLImageElement)e.target.remove()},true);
 const videoRegistry=new Map(),busyVideos=new Set();let personal={authenticated:true,favorites:[],history:[],lists:[]},personalError='',libraryTab='favorites',selectedList=null,listVideos=[],libraryQuery='',choosingVideo=null;
 const weekdays=['일','월','화','수','목','금','토'],sourceURLs={"2024":"https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit","2025":"https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit","2026":"https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"};
-let year=2026,yearLoadId=0,month=10,view='month',category='전체',query='',events=[],loaded=false,week=0,weekday=0,requestNo=0,loading=false,lastUpdated=null,yearLoading=false,yearDone=false,yearEvents=[],yearErrors=[],yearProgress=0,page=1,noteDate=null,notes={};
+const archiveMonths=/* ARCHIVE_MONTHS */null;
+let year=Math.max(...Object.keys(archiveMonths).map(Number)),yearLoadId=0,month=archiveMonths[year].at(-1),view='month',category='전체',query='',events=[],loaded=false,week=0,weekday=0,requestNo=0,loading=false,lastUpdated=null,yearLoading=false,yearDone=false,yearEvents=[],yearErrors=[],yearProgress=0,page=1,noteDate=null,notes={};
 const monthData=new Map(),pageSize=48;
-const availableMonths=()=>Array.from({length:year===2026?10:12},(_,i)=>i+1);
+const availableMonths=()=>archiveMonths[year]||[];
 const keyFor=(y,m)=>y+'-'+m;
-const monthsLabel=()=> '1~'+availableMonths().length+'월';
+const monthsLabel=()=>availableMonths().join('·')+'월';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const iso=d=>year+'-'+String(month).padStart(2,'0')+'-'+String(d).padStart(2,'0');
 const dayOf=date=>new Date(date+'T12:00:00+09:00').getUTCDay();
@@ -165,7 +179,7 @@ function setStatus(){const el=$('#status');el.className='status';el.title='최�
 function bindContent(){$$('[data-date]').forEach(b=>b.onclick=()=>showDay(b.dataset.date));$$('#content [data-note]').forEach(b=>b.onclick=()=>openNote(b.dataset.note));$$('[data-weekday]').forEach(b=>b.onclick=()=>{weekday=+b.dataset.weekday;render()});if($('#wprev'))$('#wprev').onclick=()=>{week--;render()};if($('#wnext'))$('#wnext').onclick=()=>{week++;render()};$$('[data-page]').forEach(b=>b.onclick=()=>{page=+b.dataset.page;render();$('#content').scrollIntoView({block:'start',behavior:'smooth'})})}
 function render(){
  const list=filtered(),annual=view==='year',base=currentEvents();
- $('#monthTitle').textContent=annual?year+'년 전체':year+'. '+String(month).padStart(2,'0');$('#monthSelect').value=month;$('#monthSelect').hidden=annual;$('#prev').hidden=annual;$('#next').hidden=annual;$('#current').hidden=annual;$('#prev').disabled=month===1||loading;$('#next').disabled=month===availableMonths().length||loading;
+ $('#monthTitle').textContent=annual?year+'년 전체':year+'. '+String(month).padStart(2,'0');$('#monthSelect').value=month;$('#monthSelect').hidden=annual;$('#prev').hidden=annual;$('#next').hidden=annual;$('#current').hidden=annual;$('#prev').disabled=month===availableMonths()[0]||loading;$('#next').disabled=month===availableMonths().at(-1)||loading;
  $('#total').textContent=list.length;$('#dayscount').textContent=new Set(list.map(e=>e.date)).size+'일의 방송';$('#search').placeholder=annual?year+'년 제목 검색':'방송·게임 제목 검색';$('#refresh').disabled=annual?yearLoading:loading;$('#source').href=annual?sourceURLs[year]:(monthData.get(keyFor(year,month))?.source||sourceURLs[year]);$('#footerSource').href=$('#source').href;$('#yearSelect').value=year;setStatus();
  $$('[data-cat]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.cat===category));
  $$('[data-view]').forEach(b=>{b.classList.toggle('active',b.dataset.view===view);b.setAttribute('aria-pressed',b.dataset.view===view)});
@@ -191,15 +205,16 @@ function render(){
  $('#content').innerHTML=html;bindContent();
 }
 let monthError='';
+async function refreshMonths(){try{const res=await fetch('/api/catalog',{signal:AbortSignal.timeout(15000),credentials:'omit',referrerPolicy:'no-referrer'});if(!res.ok)throw Error('Catalog unavailable');const text=await res.text();if(text.length>16384)throw Error('Catalog too large');const data=JSON.parse(text),next={};for(const y of Object.keys(sourceURLs)){const months=data[y];if(!Array.isArray(months)||!months.length||months.length>12||months.some(m=>!Number.isInteger(m)||m<1||m>12)||new Set(months).size!==months.length)throw Error('Invalid catalog');next[y]=[...months].sort((a,b)=>a-b)}const changed=JSON.stringify(next)!==JSON.stringify(archiveMonths);Object.assign(archiveMonths,next);if(!loaded)month=availableMonths().at(-1);if(changed)yearDone=false;fillMonthSelect()}catch{/* Retain the bundled catalog when offline. */}}
 async function fetchMonth(y,m,force=false){const res=await fetch('/api/month?year='+y+'&month='+m+(force?'&refresh=1':''),{signal:AbortSignal.timeout(15000),credentials:'omit',referrerPolicy:'no-referrer'});const data=await readMonthResponse(res,y,m,sourceURLs[y]);monthData.set(keyFor(y,m),data);return data}
 async function load(force=false){const ticket=++requestNo,target=month,targetYear=year;loading=true;monthError='';render();try{const data=await fetchMonth(targetYear,target,force);if(ticket!==requestNo)return;events=data.events;loaded=true;lastUpdated=data.updatedAt;}catch(e){if(ticket!==requestNo)return;monthError=e.message;}finally{if(ticket===requestNo){loading=false;render()}}}
 async function loadYear(force=false){if(yearLoading)return;const ticket=++yearLoadId,targetYear=year,months=availableMonths();yearLoading=true;yearErrors=[];yearProgress=0;const results=new Map();let index=0;render();const queue=async()=>{while(index<months.length&&ticket===yearLoadId){const m=months[index++],key=keyFor(targetYear,m);let failed=false;try{const cached=monthData.get(key);results.set(m,!force&&cached&&(Date.now()-Date.parse(cached.updatedAt)<300000)?cached:await fetchMonth(targetYear,m,force))}catch{failed=true;if(monthData.has(key))results.set(m,monthData.get(key))}if(ticket!==yearLoadId)return;if(failed)yearErrors.push(m);yearProgress++;yearEvents=[...results.values()].flatMap(d=>d.events);if(view==='year')render()}};await Promise.all([queue(),queue(),queue()]);if(ticket!==yearLoadId)return;yearLoading=false;yearDone=true;if(view==='year')render()}
-function changeMonth(m){month=m;week=0;loaded=false;events=[];monthError='';load()}
-function fillMonthSelect(){$('#monthSelect').innerHTML='';for(let m=availableMonths().length;m>=1;m--)$('#monthSelect').add(new Option(m+'월',m))}
-function changeYear(y){requestNo++;yearLoadId++;year=Number(y);month=Math.min(month,availableMonths().length);week=0;page=1;events=[];loaded=false;loading=false;monthError='';yearEvents=[];yearDone=false;yearLoading=false;yearErrors=[];lastUpdated=null;fillMonthSelect();if(view==='year')loadYear();else load()}
+function changeMonth(m){if(!availableMonths().includes(m))return;month=m;week=0;loaded=false;events=[];monthError='';load()}
+function fillMonthSelect(){$('#monthSelect').innerHTML='';for(const m of [...availableMonths()].reverse())$('#monthSelect').add(new Option(m+'월',m))}
+function changeYear(y){requestNo++;yearLoadId++;year=Number(y);month=availableMonths().filter(m=>m<=month).at(-1)||availableMonths()[0];week=0;page=1;events=[];loaded=false;loading=false;monthError='';yearEvents=[];yearDone=false;yearLoading=false;yearErrors=[];lastUpdated=null;fillMonthSelect();if(view==='year')loadYear();else load()}
 fillMonthSelect();$('#yearSelect').onchange=e=>changeYear(e.target.value);
-$('#monthSelect').onchange=e=>changeMonth(+e.target.value);$('#prev').onclick=()=>changeMonth(month-1);$('#next').onclick=()=>changeMonth(month+1);$('#current').onclick=()=>changeMonth(availableMonths().length);
-$('#refresh').onclick=()=>view==='year'?loadYear(true):load(true);
+$('#monthSelect').onchange=e=>changeMonth(+e.target.value);$('#prev').onclick=()=>changeMonth(availableMonths()[availableMonths().indexOf(month)-1]);$('#next').onclick=()=>changeMonth(availableMonths()[availableMonths().indexOf(month)+1]);$('#current').onclick=()=>changeMonth(availableMonths().at(-1));
+$('#refresh').onclick=async()=>{await refreshMonths();return view==='year'?loadYear(true):load(true)};
 $$('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;page=1;render();if(view==='year'&&!yearDone)loadYear();else if(view!=='year'&&!loaded&&!loading)load()});
 $$('[data-cat]').forEach(b=>b.onclick=()=>{category=b.dataset.cat;page=1;$$('[data-cat]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',x===b)});render()});
 $('#search').oninput=e=>{query=e.target.value;page=1;render()};$('#close').onclick=()=>$('#detail').close();
@@ -279,5 +294,5 @@ document.addEventListener('auxclick',e=>{const a=e.target.closest('a[data-watch]
 window.addEventListener('storage',e=>{if(e.key===libraryKey){loadPersonal().then(()=>{if(selectedList){const list=personal.lists.find(l=>l.id===selectedList);listVideos=list?.videos||[];if($('#libraryDialog').open)renderLibrary()}})}});
 loadPersonal();
 
-load();setInterval(()=>{if(!document.hidden){if(view==='year'&&!yearLoading)loadYear();else if(view!=='year'&&!loading)load()}},300000);
+(async()=>{await refreshMonths();load()})();setInterval(async()=>{if(!document.hidden){await refreshMonths();if(view==='year'&&!yearLoading)loadYear();else if(view!=='year'&&!loading)load()}},300000);
 </script></body></html>`;
