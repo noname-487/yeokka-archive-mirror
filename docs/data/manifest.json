@@ -1,251 +1,251 @@
 {
   "version": 1,
-  "checkedAt": "2026-11-11T18:03:56.247Z",
-  "scope": "recent",
+  "checkedAt": "2026-11-12T00:31:58.694Z",
+  "scope": "all",
   "months": [
     {
       "year": 2024,
       "month": 1,
       "count": 82,
-      "updatedAt": "2026-11-10T23:35:30.621Z",
+      "updatedAt": "2026-11-12T00:31:04.225Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 2,
       "count": 89,
-      "updatedAt": "2026-11-10T23:35:32.073Z",
+      "updatedAt": "2026-11-12T00:31:05.535Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 3,
       "count": 108,
-      "updatedAt": "2026-11-10T23:35:33.632Z",
+      "updatedAt": "2026-11-12T00:31:08.322Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 4,
       "count": 90,
-      "updatedAt": "2026-11-10T23:35:34.823Z",
+      "updatedAt": "2026-11-12T00:31:11.226Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 5,
       "count": 106,
-      "updatedAt": "2026-11-10T23:35:36.010Z",
+      "updatedAt": "2026-11-12T00:31:12.484Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 6,
       "count": 106,
-      "updatedAt": "2026-11-10T23:35:37.661Z",
+      "updatedAt": "2026-11-12T00:31:14.051Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 7,
       "count": 77,
-      "updatedAt": "2026-11-10T23:35:38.966Z",
+      "updatedAt": "2026-11-12T00:31:16.660Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 8,
       "count": 97,
-      "updatedAt": "2026-11-10T23:35:40.205Z",
+      "updatedAt": "2026-11-12T00:31:17.994Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 9,
       "count": 69,
-      "updatedAt": "2026-11-10T23:35:41.391Z",
+      "updatedAt": "2026-11-12T00:31:19.280Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 10,
       "count": 81,
-      "updatedAt": "2026-11-10T23:35:42.583Z",
+      "updatedAt": "2026-11-12T00:31:20.602Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 11,
       "count": 92,
-      "updatedAt": "2026-11-10T23:35:43.774Z",
+      "updatedAt": "2026-11-12T00:31:21.867Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2024,
       "month": 12,
       "count": 95,
-      "updatedAt": "2026-11-10T23:35:44.956Z",
+      "updatedAt": "2026-11-12T00:31:23.139Z",
       "source": "https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit"
     },
     {
       "year": 2025,
       "month": 1,
       "count": 106,
-      "updatedAt": "2026-11-10T23:35:46.921Z",
+      "updatedAt": "2026-11-12T00:31:25.231Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 2,
       "count": 113,
-      "updatedAt": "2026-11-10T23:35:49.139Z",
+      "updatedAt": "2026-11-12T00:31:27.383Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 3,
       "count": 107,
-      "updatedAt": "2026-11-10T23:35:50.575Z",
+      "updatedAt": "2026-11-12T00:31:29.096Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 4,
       "count": 108,
-      "updatedAt": "2026-11-10T23:35:52.555Z",
+      "updatedAt": "2026-11-12T00:31:30.313Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 5,
       "count": 119,
-      "updatedAt": "2026-11-10T23:35:53.897Z",
+      "updatedAt": "2026-11-12T00:31:31.946Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 6,
       "count": 102,
-      "updatedAt": "2026-11-10T23:35:56.133Z",
+      "updatedAt": "2026-11-12T00:31:33.191Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 7,
       "count": 117,
-      "updatedAt": "2026-11-10T23:35:57.468Z",
+      "updatedAt": "2026-11-12T00:31:34.417Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 8,
       "count": 123,
-      "updatedAt": "2026-11-10T23:35:59.313Z",
+      "updatedAt": "2026-11-12T00:31:35.662Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 9,
       "count": 104,
-      "updatedAt": "2026-11-10T23:36:00.568Z",
+      "updatedAt": "2026-11-12T00:31:36.886Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 10,
       "count": 113,
-      "updatedAt": "2026-11-10T23:36:01.981Z",
+      "updatedAt": "2026-11-12T00:31:38.662Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 11,
       "count": 115,
-      "updatedAt": "2026-11-10T23:36:03.237Z",
+      "updatedAt": "2026-11-12T00:31:39.922Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2025,
       "month": 12,
       "count": 132,
-      "updatedAt": "2026-11-10T23:36:04.586Z",
+      "updatedAt": "2026-11-12T00:31:41.148Z",
       "source": "https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit"
     },
     {
       "year": 2026,
       "month": 1,
       "count": 123,
-      "updatedAt": "2026-11-10T23:36:06.444Z",
+      "updatedAt": "2026-11-12T00:31:42.358Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 2,
       "count": 126,
-      "updatedAt": "2026-11-10T23:36:07.726Z",
+      "updatedAt": "2026-11-12T00:31:44.067Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 3,
       "count": 146,
-      "updatedAt": "2026-11-10T23:36:08.995Z",
+      "updatedAt": "2026-11-12T00:31:45.381Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 4,
       "count": 116,
-      "updatedAt": "2026-11-10T23:36:10.283Z",
+      "updatedAt": "2026-11-12T00:31:47.094Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 5,
       "count": 158,
-      "updatedAt": "2026-11-10T23:36:11.565Z",
+      "updatedAt": "2026-11-12T00:31:48.856Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 6,
       "count": 145,
-      "updatedAt": "2026-11-10T23:36:12.853Z",
+      "updatedAt": "2026-11-12T00:31:50.204Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 7,
       "count": 183,
-      "updatedAt": "2026-11-10T23:36:14.137Z",
+      "updatedAt": "2026-11-12T00:31:51.406Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 8,
       "count": 172,
-      "updatedAt": "2026-11-10T23:36:15.444Z",
+      "updatedAt": "2026-11-12T00:31:53.101Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 9,
       "count": 176,
-      "updatedAt": "2026-11-10T23:36:17.301Z",
+      "updatedAt": "2026-11-12T00:31:54.713Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 10,
       "count": 131,
-      "updatedAt": "2026-11-11T18:03:53.940Z",
+      "updatedAt": "2026-11-12T00:31:56.340Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     },
     {
       "year": 2026,
       "month": 11,
       "count": 54,
-      "updatedAt": "2026-11-11T18:03:55.233Z",
+      "updatedAt": "2026-11-12T00:31:57.681Z",
       "source": "https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit"
     }
   ],
