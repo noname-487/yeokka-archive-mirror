@@ -72,10 +72,10 @@ jobs:
       - name: Check YouTube descriptions during cache refresh
         if: steps.freshness.outputs.run == 'true'
         continue-on-error: true
-        timeout-minutes: 1
+        timeout-minutes: 5
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: python3 scripts/review-youtube-api.py --cache-check --limit 50
+        run: python3 scripts/review-youtube-api.py --cache-backfill
       - name: Build static site
         if: steps.freshness.outputs.run == 'true'
         run: node scripts/build-pages.mjs
@@ -92,6 +92,9 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add config/sources.json docs/data docs/index.html worker/cache-seed.js
+          if [ -f config/youtube-api-progress.json ]; then
+            git add config/youtube-api-progress.json
+          fi
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh public archive cache'
             git pull --rebase origin main
