@@ -50,3 +50,14 @@ GitHub Pages 설정은 Source를 GitHub Actions로 선택합니다. main 변경�
 - `npm run build:pages && npm test`: 검색용 페이지를 다시 빌드하고 검사합니다.
 
 설명 원본 CSV는 저장소에 올리지 않습니다. 공개 페이지에는 이름만 포함되고, 멤버 목록이 없었던 영상의 검토 이력은 `config/guest-reviewed-empty.json`의 영상 ID만 저장합니다.
+
+### YouTube API로 미확인 영상 설명 검토
+
+구글시트를 준비할 필요 없이, 기존 달력에서 아직 확인하지 않은 영상 ID를 최신순으로 사용합니다.
+
+1. [Google Cloud Console](https://console.cloud.google.com/apis/library/youtube.googleapis.com)에서 **YouTube Data API v3**를 사용 설정합니다. **사용자 인증 정보**에서 API 키를 만들고, API 제한을 **YouTube Data API v3**로 설정합니다.
+2. 저장소에서 `python scripts/review-youtube-api.py --dry-run --limit 10`으로 검토할 영상을 확인합니다.
+3. `python scripts/review-youtube-api.py --limit 10`을 실행하고 화면에 표시되지 않는 입력창에 키를 넣습니다. 자동 실행 환경에서는 `YOUTUBE_API_KEY` 환경변수로 전달할 수 있습니다. 키를 소스, 명령 인자, 채팅, 공개 저장소에 넣지 않습니다.
+4. 결과에 나타난 원본 설명으로 참여자를 검토합니다. `unavailable`은 설명을 확인할 수 없는 영상이며, 참여자가 없는 영상으로 처리하지 않습니다.
+
+이 명령은 설명을 확인하기 위한 로컬 도구입니다. API 응답은 화면에만 출력하며, 키·설명 원문을 저장하거나 사이트에 배포하지 않습니다. 결과는 공개 로그나 GitHub에 붙여넣지 않습니다. API와 무관하게 확인하여 공개할 수 있는 참여자 목록은 기존 가져오기 절차로 등록합니다.
