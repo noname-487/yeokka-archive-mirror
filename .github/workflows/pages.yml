@@ -21,6 +21,7 @@ jobs:
   build:
     outputs:
       publish: ${{ steps.freshness.outputs.run }}
+      artifact: ${{ steps.freshness.outputs.artifact }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -60,6 +61,7 @@ jobs:
           const scope = event === 'workflow_dispatch' ? process.env.REQUESTED_SCOPE || 'all' : (forcedDaily || dailyDue ? 'all' : 'recent');
           const run = event !== 'schedule' || forcedDaily || dailyDue || recentDue;
           fs.appendFileSync(process.env.GITHUB_OUTPUT, 'run='+run+'\nscope='+scope+'\n');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, 'artifact=github-pages-'+process.env.GITHUB_RUN_ATTEMPT+'\n');
           fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, 'Cache check: '+new Date(now).toISOString()+'\n\n'+(run ? 'Refresh scope: '+scope : 'Cache is fresh; no source requests or deployment needed.')+'\n');
           NODE
       - name: Refresh shared cache
@@ -99,6 +101,7 @@ jobs:
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: docs
+          name: ${{ steps.freshness.outputs.artifact }}
   deploy:
     if: needs.build.outputs.publish == 'true'
     timeout-minutes: 10
@@ -114,3 +117,5 @@ jobs:
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+        with:
+          artifact_name: ${{ needs.build.outputs.artifact }}
