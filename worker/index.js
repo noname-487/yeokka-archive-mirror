@@ -1,21 +1,62 @@
 import seed from './cache-seed.js';
 // Names verified in each video description, keyed by YouTube video ID.
 const verifiedGuests={
+ "-shsJSw3x3o":["델로략국","모잉","순당무","아무탈","왈도쿤","이무지"],
  "0iu2kVuV2pg":["이무지","이보늬","이하얀"],
  "1EtQe3McnVE":["아쿠루","우고","이무지"],
+ "3xxxZQTU3og":["모잉","순당무","아무탈","왈도쿤","이무지"],
+ "4mfPbmHNpEQ":["김니디","이무지","이쿠롬","제오","한사기"],
+ "5yPIJkwbmVQ":["니르","아무탈","아즈","하렌 루베오스"],
+ "7jVahVFSrCk":["니르","아무탈","아즈","하렌 루베오스"],
+ "7pUqfv0LwXo":["이보늬","이무지","이하얀"],
  "81yTRCbfgYg":["니르","리나 아르시엘","쿠로노 이안","하렌 루베오스"],
  "8PcWge-OcYc":["이무지","이하얀"],
+ "9I6DgOygt5Y":["델로략국","플레임TV","하우카우"],
  "AK073VaEESc":["김니디","이무지","이쿠롬"],
  "C81pPASLCBE":["달콤레나","서새봄","소풍왔니","쿠레나이 나츠키"],
+ "Cjx2a9KC5MU":["이무지","김니디","이쿠롬"],
+ "ISosvz7QJtw":["꽉변호사","모치즈키 카에데","앵보"],
  "KB7avgs5Mog":["아자엘","애타","탐랑"],
+ "KLsp-rBP1Lk":["니르","마재","모잉"],
+ "LWn6yqwFspE":["쿠로노 이안"],
+ "MvNT3WH8bKo":["달콤레나","서새봄","소풍왔니","쿠레나이 나츠키"],
+ "NOIV3ssBv64":["꽉변호사","모치즈키 카에데","앵보"],
+ "NaRgUv9Y-4Q":["아자엘","애타","탐랑"],
+ "O8B3o4BVlAk":["칠신","일급천재","꽉 변호사"],
+ "OooP-Z0U9iU":["김길현","박시초"],
+ "PXsQ6mqUp8E":["니르","마재","모잉"],
+ "PlH8fuNWwdc":["쯔느","왈도쿤"],
+ "R1VOix--bys":["모잉","통깡이"],
+ "R7DP2HkOO7s":["박시초","아즈","제오"],
+ "TST2g0TTV7U":["니르","리나 아르시엘","쿠로노 이안","하렌 루베오스"],
+ "Tr7kAcXFeEQ":["김니디","이무지","이쿠롬"],
+ "UstgTapxXwA":["아쿠루","우고","이무지"],
+ "WBS2LRs-0yk":["델로략국","플레임TV","하우카우"],
+ "Y9DmFGgibn4":["달콤레나","서새봄","소풍왔니","쿠레나이 나츠키","뀨쨩","앵보"],
  "ZniRRkKG0TI":["모잉","이무지","제오","조별하","통깡이"],
+ "_dvQeURtCaE":["쿠레나이 나츠키","앵보"],
  "aAyqYkifZtM":["아자엘","애타","탐랑"],
  "aQjt8eHk83c":["아쿠루","우고","이무지"],
+ "agCJTsOlAf8":["아즈","쯔느"],
+ "cFLO2H7cfog":["니르","아무탈","아즈","하렌 루베오스"],
  "ckjd5_OnVm8":["니르","리나 아르시엘","쿠로노 이안","하렌 루베오스"],
  "dfc7c0VLgn4":["모잉","통깡이"],
+ "g18q1Ju59hg":["델로략국","모잉","순당무","아무탈","왈도쿤","이무지"],
+ "iEUgYEGkgGg":["이보늬","이무지","이하얀"],
  "i_UVYgrXYTU":["니르","아무탈","아즈","하렌 루베오스"],
+ "jpmpOMfIh4w":["니르","리나 아르시엘","쿠로노 이안","하렌 루베오스"],
+ "kk2zDFY-S4g":["이무지","이보늬","이하얀"],
  "mI63XbLDYn8":["모잉","통깡이"],
- "nguFdhUhmw0":["달콤레나","서새봄","소풍왔니","쿠레나이 나츠키","뀨쨩","앵보"]
+ "mStDewcYwbY":["박시초","아즈","제오"],
+ "nguFdhUhmw0":["달콤레나","서새봄","소풍왔니","쿠레나이 나츠키","뀨쨩","앵보"],
+ "oK1xqrFS5sk":["이무지","제오","조별하","부쉬대통령"],
+ "oNCxnbMrbdI":["모잉","통깡이"],
+ "oYdoziT1QyM":["델로략국","플레임TV","하우카우"],
+ "ooubqThvw-U":["모잉","아무탈","왈도쿤","이무지","브렉"],
+ "rPDnLcxCX3M":["모잉","왈도쿤"],
+ "v5P7WSDs0ow":["꽉변호사","모치즈키 카에데","앵보"],
+ "vOWbEAgcHE8":["이무지","이보늬","이하얀"],
+ "xPfSX1-yTNQ":["모잉","이무지","제오","조별하","통깡이"]
 };
 const ARCHIVES={"2024":{"url":"https://docs.google.com/spreadsheets/d/1IrUwPafmHRPrH-OXjs1Ik8D1v0l7C2i8Z3yaR912CIE/edit","months":{"1":50829458,"2":2056168803,"3":1688697844,"4":2127956194,"5":1133737445,"6":1624229610,"7":1784043976,"8":1798622193,"9":1467050989,"10":1233327628,"11":172256,"12":561827448}},"2025":{"url":"https://docs.google.com/spreadsheets/d/16oZ24IF7YJMPrlncgrRewdwhEqfToNMfi_umWdZTvkE/edit","months":{"1":279939489,"2":1151558044,"3":258401270,"4":1785854017,"5":969465347,"6":1541333005,"7":1611681937,"8":1104028727,"9":966720213,"10":1399773513,"11":1042280066,"12":1762627952}},"2026":{"url":"https://docs.google.com/spreadsheets/d/1I-BSU71wGj7zkz0pc8uGbPW3s-mQULwWtfbHLOF_15E/edit","months":{"1":1762627952,"2":319256228,"3":186810600,"4":1925243610,"5":156182612,"6":942958486,"7":1171930272,"8":1752205037,"9":657409473,"10":1423317523}}};
 export function decode(s){return s.replace(/<br\s*\/?\s*>/gi,'\n').replace(/<[^>]*>/g,'').replace(/&(?:amp|lt|gt|quot|apos|nbsp);|&#(?:x[\da-f]+|\d+);/gi,x=>({'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&apos;':"'",'&nbsp;':' '}[x]??String.fromCodePoint(x[2].toLowerCase()==='x'?parseInt(x.slice(3),16):parseInt(x.slice(2),10)))).trim()}
@@ -190,7 +231,7 @@ function matchesArchive(e,term){const q=searchKey(term).trim();if(searchKey(e.ti
 function filtered(){return currentEvents().filter(e=>(category==='전체'||e.category===category)&&matchesArchive(e,query))}
 function onDate(date,list){return list.filter(e=>e.date===date)}
 function thumb(e,cls='thumb'){return '<div class="'+cls+'">'+(e.videoId?'<img loading="lazy" alt="'+esc(e.title)+' 썸네일" src="https://i.ytimg.com/vi/'+e.videoId+'/mqdefault.jpg">':'썸네일 없음')+'</div>'}
-function card(e,showGuests=false){const id=rememberVideo(e),saved=favorite(e),tag=e.url?'a':'div';return '<article class="video"><'+tag+' class="watch-link"'+(e.url?' data-watch="'+id+'" href="'+esc(e.url)+'" target="_blank" rel="noopener noreferrer"':'')+'>'+thumb(e)+'<div class="videobody">'+birthdayBadge(e.date,'video')+'<small>'+esc(e.date.replaceAll('-','.'))+' · '+esc(e.part)+' · '+esc(e.category)+'</small><h4>'+esc(e.title)+'</h4>'+(showGuests&&guests(e).length?'<p class="sub">합방 · '+esc(guests(e).join(' · '))+'</p>':'')+(!e.url?'<span class="no-link">원본에 영상 링크 없음</span>':'')+'</div></'+tag+'>'+(id?'<div class="video-actions"><button data-fav="'+id+'" class="'+(saved?'is-saved':'')+'" aria-pressed="'+saved+'">'+(saved?'★ 즐겨찾기':'☆ 즐겨찾기')+'</button><button data-add="'+id+'">＋ 목록</button></div>':'')+'</article>'}
+function card(e,showGuests=false){const id=rememberVideo(e),saved=favorite(e),tag=e.url?'a':'div';return '<article class="video"><'+tag+' class="watch-link"'+(e.url?' data-watch="'+id+'" href="'+esc(e.url)+'" target="_blank" rel="noopener noreferrer"':'')+'>'+thumb(e)+'<div class="videobody">'+birthdayBadge(e.date,'video')+'<small>'+esc(e.date.replaceAll('-','.'))+' · '+esc(e.part)+' · '+esc(e.category)+'</small><h4>'+esc(e.title)+'</h4>'+(showGuests&&guests(e).length?'<p class="sub">'+esc(guests(e).join(' · '))+'</p>':'')+(!e.url?'<span class="no-link">원본에 영상 링크 없음</span>':'')+'</div></'+tag+'>'+(id?'<div class="video-actions"><button data-fav="'+id+'" class="'+(saved?'is-saved':'')+'" aria-pressed="'+saved+'">'+(saved?'★ 즐겨찾기':'☆ 즐겨찾기')+'</button><button data-add="'+id+'">＋ 목록</button></div>':'')+'</article>'}
 function noteButton(date){return '<button class="note-edit '+(notes[date]?'has-note':'')+'" data-note="'+date+'" aria-label="'+dateLabel(date)+' 메모 '+(notes[date]?'수정':'작성')+'" title="날짜 메모">✎</button>'}
 function noteBlock(date){return notes[date]?'<button class="daynote" data-note="'+date+'" aria-label="'+dateLabel(date)+' 메모 수정">'+esc(notes[date])+'</button>':''}
 function openNote(date){noteDate=date;$('#noteTitle').textContent=dateLabel(date)+' 메모';$('#noteText').value=notes[date]||'';$('#noteCount').textContent=$('#noteText').value.length+' / 1,000';$('#noteError').textContent='';$('#noteClear').hidden=!notes[date];$('#noteDialog').showModal();$('#noteText').focus()}
