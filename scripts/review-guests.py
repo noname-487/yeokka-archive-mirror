@@ -15,7 +15,7 @@ DIVIDER = re.compile(r'^\s*(?:=\s*){6,}$')
 GUEST_LINE = re.compile(r'^(?:w\.\s*)?([\w.· ()-]{1,65}?)\s*[-–:]\s*https://(?:www\.)?(?:youtube\.com|youtu\.be|chzzk\.naver\.com|twitch\.tv)/\S+$', re.I)
 NAME = re.compile(r'^[\w.· ()-]{1,65}$')
 HOST_LINE = re.compile(r'^여까\s+(?:치지직|유튜브)\s+https://\S+$')
-ARCHIVE_HEADER = re.compile(r'^20\d\d \d\d \d\d\b')
+ARCHIVE_HEADER = re.compile(r'^20\d{2}\s+(?:0[1-9]|1[0-2])\s*(?:0[1-9]|[12]\d|3[01])\b')
 
 
 def parse_description(description):
