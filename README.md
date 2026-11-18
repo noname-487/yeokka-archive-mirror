@@ -42,3 +42,11 @@ GitHub Pages 설정은 Source를 GitHub Actions로 선택합니다. main 변경�
 기존 검색창에서 제목 또는 합방 멤버 이름을 검색할 수 있습니다. 다른 달의 영상을 찾으려면 연간 모아보기를 선택하세요. 라디오를 포함해 멤버가 확인된 영상의 이름은 날짜 상세에서만 표시합니다.
 
 `worker/index.js`의 `verifiedGuests`에 원본 영상 설명에서 확인한 이름만 영상 ID별로 등록합니다. 영상 설명 원문, 멤버 채널 링크, 확인되지 않은 이름은 저장하지 않습니다. 월 캐시 갱신과 별도로 관리하며 YouTube를 자동 조회하지 않습니다.
+
+미확인 영상은 `python scripts/review-guests.py --limit 100`으로 최신 방송일부터 CSV로 뽑을 수 있습니다. 채널 운영자가 제공한 자료를 사용할 때는 `videoId,description` 열 또는 확인된 이름을 `|`로 구분한 `videoId,members` 열을 준비합니다.
+
+- `python scripts/review-guests.py --input FILE.csv`: 등록 후보, 이름 없음, 검토 필요를 출력합니다.
+- `python scripts/review-guests.py --input FILE.csv --apply`: 결과를 확인한 뒤 등록합니다. 애매한 설명은 제외하고 기존 이름 목록은 유지합니다.
+- `npm run build:pages && npm test`: 검색용 페이지를 다시 빌드하고 검사합니다.
+
+설명 원본 CSV는 저장소에 올리지 않습니다. 공개 페이지에는 이름만 포함되고, 멤버 목록이 없었던 영상의 검토 이력은 `config/guest-reviewed-empty.json`의 영상 ID만 저장합니다.
