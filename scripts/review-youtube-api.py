@@ -67,6 +67,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--limit', type=int, default=10, help='Review this many pending videos (1–250).')
     parser.add_argument('--dry-run', action='store_true', help='List selected videos without calling YouTube.')
+    parser.add_argument('--cache-check', action='store_true', help='Use in the cache workflow; print only aggregate status.')
     args = parser.parse_args()
     if not 1 <= args.limit <= 250:
         parser.error('--limit must be between 1 and 250')
@@ -78,6 +79,9 @@ def main():
             print(json.dumps(row, ensure_ascii=False))
         return
     key = os.environ.get('YOUTUBE_API_KEY', '').strip()
+    if not key and args.cache_check:
+        print('YouTube API check skipped: repository secret is not configured.')
+        return
     if not key and sys.stdin.isatty():
         key = getpass.getpass('YouTube API key (hidden): ').strip()
     if not key:
@@ -85,8 +89,12 @@ def main():
     if not re.fullmatch(r'[A-Za-z0-9_-]{20,200}', key):
         parser.exit(2, 'The YouTube API key format is invalid.\n')
     try:
-        for row in descriptions(rows, key):
-            print(json.dumps(row, ensure_ascii=False))
+        if args.cache_check:
+            available = sum(row['status'] == 'available' for row in descriptions(rows, key))
+            print(f'YouTube API check: {available} descriptions readable, {len(rows) - available} unavailable.')
+        else:
+            for row in descriptions(rows, key):
+                print(json.dumps(row, ensure_ascii=False))
     except ValueError as e:
         parser.exit(1, str(e) + '\n')
 

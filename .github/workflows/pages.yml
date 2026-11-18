@@ -67,6 +67,13 @@ jobs:
         env:
           CACHE_SCOPE: ${{ steps.freshness.outputs.scope }}
         run: node scripts/sync-cache.mjs --"$CACHE_SCOPE"
+      - name: Check YouTube descriptions during cache refresh
+        if: steps.freshness.outputs.run == 'true'
+        continue-on-error: true
+        timeout-minutes: 1
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python3 scripts/review-youtube-api.py --cache-check --limit 50
       - name: Build static site
         if: steps.freshness.outputs.run == 'true'
         run: node scripts/build-pages.mjs
